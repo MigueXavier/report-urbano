@@ -123,13 +123,14 @@ A especificação completa está na documentação do projeto. Itens marcados co
 
 ## 👥 Integrantes
 
-| Integrante | Papel | Responsabilidades |
+| Integrante 
 | :--- | :--- | :--- |
-| **[Nome 1]** | [Papel] | [Responsabilidades] |
-| **[Nome 2]** | [Papel] | [Responsabilidades] |
-| **[Nome 3]** | [Papel] | [Responsabilidades] |
-| **[Nome 4]** | [Papel] | [Responsabilidades] |
-| **[Nome 5]** | [Papel] | [Responsabilidades] |
+| **Bernardo Machado**  |
+| **Guilherme Tolentino**  |
+| **Matheus Teixeira**  |
+| **Mario Eduardo**  |
+| **MIguel Xavier**  |
+| **Rafael Abi-Saber**  |
 
 *(Preencher conforme a seção 5.1 da documentação.)*
 
