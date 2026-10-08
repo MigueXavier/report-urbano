@@ -4,7 +4,7 @@ export const Dialog=({text,onYes,onNo})=><div className="ov" role="dialog" aria-
 export const Chip=({on,...p})=><button type="button" aria-pressed={on} className={'chip'+(on?' on':'')} {...p}/>;
 export const Seg=({opts,v,set})=><div className="seg" role="group">{opts.map(o=><button type="button" key={o} aria-pressed={v===o} className={v===o?'on':''} onClick={()=>set(o)}>{o}</button>)}</div>;
 export const Badge=({s})=><span className={'bd '+(s==='Aberta'?'op':'ok')}>{s}</span>;
-export const Card=({o,onClick})=><button className="card" onClick={onClick}><div className="th"/><b>{o.tipo}</b><small>{o.conf} confirmações · {o.dias}d</small><Badge s={o.status}/></button>;
+export const Card=({o,onClick})=><button className="card" onClick={onClick}><div className={'th'+(o.acess?' accessible':'')}>{o.foto?<img src={o.foto} alt=""/>:<span aria-hidden="true">{o.acess?'◎':'!'}</span>}</div><div className="card-content"><Badge s={o.status}/><b>{o.tipo}</b><small>{o.end}</small><small>{o.conf} confirmações · {o.dias} dias</small></div><span className="card-arrow" aria-hidden="true">›</span></button>;
 export const Row=({k,v})=><div className="rw"><span>{k}</span><b>{v}</b></div>;
 export const F=({l,...p})=><label>{l}<input {...p}/></label>;
-export const Photo=({src})=>src?<img className="ph" src={src} alt="Foto da ocorrência"/>:<div className="ph" role="img" aria-label="Sem foto"/>;
+export const Photo=({src})=>src?<img className="ph" src={src} alt="Foto da ocorrência"/>:<div className="ph placeholder" role="img" aria-label="Sem foto"><span>＋</span><small>Nenhuma foto adicionada</small></div>;

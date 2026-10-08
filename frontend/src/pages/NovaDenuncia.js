@@ -10,10 +10,10 @@ export default function NovaDenuncia(){const {list,add}=useApp(),n=useNavigate()
   add({...f,pos,foto,end,status:'Aberta',dias:0,conf:1,data:new Date().toLocaleDateString('pt-BR'),autor:'Você'});n('/mapa')};
  const T=['Foto da ocorrência','Confirme o local','Verificar duplicata','Classificar ocorrência','Confirmar envio'][s-1];
  return <main className="scr"><Bar title={`${s}/5 · ${T}`} back={false} right={<button className="ico" aria-label="Voltar" onClick={back}>←</button>}/>
- {s===1&&<><Photo src={foto}/><label className="btn sec ln">📷 {foto?'Trocar foto':'Tirar foto ou escolher da galeria'}
+ <div className="progress-track" aria-label={`Etapa ${s} de 5`}><span style={{width:`${s*20}%`}}/></div>{s===1&&<><Photo src={foto}/><label className="btn sec ln">{foto?'Trocar foto':'Tirar foto ou escolher da galeria'}
   <input hidden type="file" accept="image/*" capture="environment" onChange={e=>e.target.files[0]&&setFoto(URL.createObjectURL(e.target.files[0]))}/></label>
   <small>Evite fotografar pessoas, placas de veículos ou fachadas identificáveis.</small></>}
- {s===2&&<><Mapa pick={pos} onPick={setPos}/><small>Arraste o pino para ajustar o local.</small></>}
+ {s===2&&<><Mapa pick={pos} onPick={setPos}/><small>Arraste o pino ou clique no mapa para ajustar o local.</small></>}
  {s===3&&<><h2>⚠ Foram detectadas {dups.length} denúncias próximas</h2><div className="grid">{dups.map(o=><Card key={o.id} o={o} onClick={()=>n('/ocorrencia/'+o.id)}/>)}</div></>}
  {s===4&&<><label>Tipo<select value={f.tipo} onChange={e=>set('tipo',e.target.value)}>{TIPOS.map(t=><option key={t}>{t}</option>)}</select></label>
   <label className="chk"><input type="checkbox" checked={f.acess} onChange={e=>set('acess',e.target.checked)}/> Impacta acessibilidade</label>
