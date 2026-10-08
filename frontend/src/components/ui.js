@@ -1,0 +1,10 @@
+import {useNavigate} from 'react-router-dom';
+export const Bar=({title,back=true,right})=>{const n=useNavigate();return <header className="bar">{back&&<button className="ico" aria-label="Voltar" onClick={()=>n(-1)}>←</button>}<h1>{title}</h1>{right}</header>};
+export const Dialog=({text,onYes,onNo})=><div className="ov" role="dialog" aria-modal="true"><div className="dlg"><p>{text}</p><b>Continuar?</b><div className="row"><button className="btn" onClick={onYes}>Sim</button><button className="btn sec" onClick={onNo}>Não</button></div></div></div>;
+export const Chip=({on,...p})=><button type="button" aria-pressed={on} className={'chip'+(on?' on':'')} {...p}/>;
+export const Seg=({opts,v,set})=><div className="seg" role="group">{opts.map(o=><button type="button" key={o} aria-pressed={v===o} className={v===o?'on':''} onClick={()=>set(o)}>{o}</button>)}</div>;
+export const Badge=({s})=><span className={'bd '+(s==='Aberta'?'op':'ok')}>{s}</span>;
+export const Card=({o,onClick})=><button className="card" onClick={onClick}><div className="th"/><b>{o.tipo}</b><small>{o.conf} confirmações · {o.dias}d</small><Badge s={o.status}/></button>;
+export const Row=({k,v})=><div className="rw"><span>{k}</span><b>{v}</b></div>;
+export const F=({l,...p})=><label>{l}<input {...p}/></label>;
+export const Photo=({src})=>src?<img className="ph" src={src} alt="Foto da ocorrência"/>:<div className="ph" role="img" aria-label="Sem foto"/>;
