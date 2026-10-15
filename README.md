@@ -187,3 +187,5 @@ Abordagem ágil, com sprints curtas e quadro Kanban (Backlog → A fazer → Em 
 
 ## 📝 Licença
 Este projeto está sob a licença MIT.
+
+
