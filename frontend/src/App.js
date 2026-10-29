@@ -1,12 +1,16 @@
-
-import './App.css';
-import MapaOcorrencias from './components/MapaOcorrencias/MapaOcorrencias';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import OcorrenciaDetalhe from "./pages/OcorrenciaDetalhe";
+import MeuHistorico from "./pages/MeuHistorico";
 
 function App() {
   return (
-    <main className="App">
-      <MapaOcorrencias />
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/historico" />} />
+        <Route path="/historico" element={<MeuHistorico />} />
+        <Route path="/ocorrencias/:id" element={<OcorrenciaDetalhe />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
