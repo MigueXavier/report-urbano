@@ -24,9 +24,9 @@ public class ClassificacaoController {
     @GetMapping("/opcoes")
     public OpcoesDeClassificacao opcoes() {
         return new OpcoesDeClassificacao(
-                Opcoes.listar(TipoOcorrencia.class),
-                Opcoes.listar(PerfilAfetado.class),
-                Opcoes.listar(Gravidade.class),
+                TipoOcorrencia.opcoes(),
+                PerfilAfetado.opcoes(),
+                Gravidade.opcoes(),
                 ClassificacaoOcorrencia.DESCRICAO_MAX);
     }
 
