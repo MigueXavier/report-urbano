@@ -1,82 +1,73 @@
-# Report Urbano com Camada de Acessibilidade 🏙️♿
+# Report Urbano — Parte 4: Mapa (RF13 e RF14)
 
-> Aplicação web colaborativa para registro de problemas urbanos em Belo Horizonte com foco em acessibilidade (ODS 11).
+Componente React mobile-first usando Leaflet e React Leaflet, com cores inspiradas na logo do Report Urbano.
 
----
+## 1. Instalar dependências
 
-## 📌 Sobre o Projeto
+Na pasta do seu frontend React:
 
-O **Report Urbano** é uma aplicação voltada para celulares (PWA) em que moradores de Belo Horizonte registram problemas de infraestrutura urbana (buracos, calçadas danificadas, ausência de rampas) com foto e localização. O diferencial é tratar a **acessibilidade como parte do mesmo registro**: no mesmo fluxo, a pessoa informa se a ocorrência impede ou dificulta a passagem de quem tem deficiência ou mobilidade reduzida e quais perfis são afetados.
+```bash
+npm install leaflet react-leaflet
+```
 
-As ocorrências aparecem em um mapa público, podem ser confirmadas por outros moradores com um toque e são agrupadas por proximidade para indicar onde o problema é mais grave. Com esses dados, o sistema gera um painel de medição por região, calcula um **Índice de Acesso** para destinos essenciais e produz um **dossiê em PDF** para encaminhamento aos órgãos competentes.
+O componente está preparado para Create React App (comando `npm start`), comum em projetos React. Se o projeto usar Vite, troque `process.env.REACT_APP_API_URL` por `import.meta.env.VITE_API_URL`.
 
-- **Contexto:** Belo Horizonte / ODS 11 – Cidades e Comunidades Sustentáveis.
-- **Instituição:** Pontifícia Universidade Católica de Minas Gerais (PUC Minas).
-- **Protótipo Navegável:** [Acessar no Balsamiq](https://balsamiq.cloud/smo0am2/p179m1k) (abrir em *Full Screen Presentation* e escolher *User Test*; não é preciso login).
+## 2. Copiar os arquivos
 
----
+Copie:
+- `src/components/MapaOcorrencias/MapaOcorrencias.jsx`
+- `src/components/MapaOcorrencias/MapaOcorrencias.css`
+- `public/logo-report-urbano.png`
 
-## ❓ O Problema
+para os mesmos caminhos no seu frontend.
 
-- Ninguém tem um mapa das barreiras das calçadas: a prefeitura registra buraco na via, mas não registra degrau nem falta de rampa — justamente o que impede uma pessoa com deficiência de chegar ao destino.
-- Os canais de denúncia existentes são pouco usados (na análise da equipe, o Colab teve menos de uma publicação por usuário cadastrado em dez anos).
-- Quem registra raramente recebe retorno e, por isso, tende a não registrar de novo. Sem retorno visível, também não há como provar que o problema existe nem há quanto tempo está sem resposta.
+Depois, em uma tela/rota do React:
 
-## 🎯 Objetivos
+```jsx
+import MapaOcorrencias from "./components/MapaOcorrencias/MapaOcorrencias";
 
-- Registrar uma ocorrência com foto e localização em **menos de 30 segundos**, sem digitação obrigatória.
-- Classificar cada ocorrência por tipo, gravidade e impacto em acessibilidade, indicando os perfis afetados.
-- Dar retorno imediato por **confirmação coletiva com um toque** e por sugestão de ocorrências semelhantes (evitando duplicidade).
-- Agrupar ocorrências próximas e calcular um **score de prioridade** por grupo.
-- Exibir um **painel público por região** (ocorrências abertas, tempo médio sem resposta, resolvidas nos últimos 30 dias).
-- Calcular o **Índice de Acesso** dos destinos essenciais (pontos de ônibus, UBS, escolas, farmácias e praças).
-- Gerar um **dossiê em PDF** por região, com fotos, endereços e prioridade.
-- Estruturar o sistema para que novas cidades possam ser incluídas depois de Belo Horizonte.
+export default function App() {
+  return <MapaOcorrencias />;
+}
+```
 
-## 👤 Público-alvo e Personas
+## 3. Configurar o endereço do backend
 
-O público principal são pessoas com deficiência física ou visual que circulam por BH e moradores que já reportam buracos e calçadas quebradas. Em segundo plano, trabalhadores que dependem das ruas (como entregadores) e familiares ou cuidadores de pessoas com deficiência.
+Crie/edite `.env` na raiz do frontend:
 
-| Persona | Perfil | O que precisa da aplicação |
-| :--- | :--- | :--- |
-| **Marilene, 65** | Aposentada, caminha bastante, letramento digital básico | Denunciar de forma simples, ser levada a sério e saber a posição dos órgãos responsáveis |
-| **Galeano, 24** | Motoboy, letramento digital excelente | Registro rápido, sem interromper o trabalho, e acompanhamento da evolução dos casos |
-| **Joana, 45** | Empresária, mãe de um menino cadeirante | Denunciar falta de acessibilidade com fotos/vídeos e acompanhar se o local foi fiscalizado ou adequado |
+```env
+REACT_APP_API_URL=http://localhost:8080
+```
 
----
+Reinicie o servidor React depois de alterar `.env`. Em Create React App, as variáveis precisam começar com `REACT_APP_`.
 
-## ✨ Funcionalidades
+## 4. Contrato esperado do endpoint
 
-- **Registro de ocorrência** com foto obrigatória, GPS (ajustável no mapa), tipo, gravidade, impacto em acessibilidade e perfis afetados (cadeirante, mobilidade reduzida, baixa visão, idoso). Descrição em texto é opcional.
-- **Mapa público** com filtro por ocorrências que impactam a acessibilidade e tela de detalhe (foto, tipo, data, status, confirmações e dias em aberto).
-- **Confirmação com um toque**, sem repetição pelo mesmo usuário.
-- **Checagem de duplicatas:** ao registrar, o sistema sugere ocorrências do mesmo tipo em um raio de 20 m.
-- **Clusterização** de ocorrências em um raio de 100 m, com score de prioridade (densidade, confirmações, tempo em aberto, gravidade e proximidade de destino essencial).
-- **Ciclo de vida:** qualquer usuário pode marcar uma ocorrência como resolvida; o status e a data da mudança são mantidos.
-- **Painel de medição público** por região (não exige login).
-- **Índice de Acesso:** proporção de destinos essenciais com barreira de acessibilidade em um raio de 150 m.
-- **Dossiê em PDF** por região para encaminhamento aos órgãos competentes.
-- **Moderação:** qualquer usuário pode denunciar conteúdo indevido; a remoção é restrita a moderadores.
-- **Privacidade:** a identidade do autor só é divulgada se o usuário desejar.
+O componente chama:
 
-### 🚫 Fora do escopo
+`GET /ocorrencias?bbox=minLng,minLat,maxLng,maxLat&acessibilidade=true`
 
-- Cálculo de rotas acessíveis (não existe grafo de calçadas no OpenStreetMap brasileiro).
-- Integração com a Central 156 ou outro canal oficial da prefeitura.
-- Gamificação (pontos, ranking, missões).
-- Metas de resolução para a prefeitura — o painel apenas mede e exibe.
+O parâmetro `acessibilidade=true` só é enviado quando o toggle está ligado. O mapa consulta novamente quando a pessoa move ou altera o zoom, com um pequeno atraso para evitar várias chamadas seguidas.
 
----
+O componente aceita uma lista JSON, `{ "content": [...] }`, `{ "ocorrencias": [...] }` ou uma coleção GeoJSON `FeatureCollection`.
 
-## 🛠️ Tecnologias Utilizadas
+Cada ocorrência deve ter uma localização GeoJSON, por exemplo:
 
-- **Front-end:** React (PWA)
-- **Back-end:** Java com Spring Boot
-- **Banco de Dados:** MongoDB (índice `2dsphere` e coordenadas GeoJSON; consultas de proximidade com operadores geoespaciais nativos)
-- **Hospedagem / Deploy:** Vercel
-- **Versionamento:** Git
-- **Prototipação:** Balsamiq
+```json
+{
+  "id": "exemplo-1",
+  "tipo": "CALCADA_QUEBRADA",
+  "gravidade": "ALTA",
+  "status": "ABERTA",
+  "descricao": "Piso irregular na passagem",
+  "localizacao": {
+    "type": "Point",
+    "coordinates": [-43.9386, -19.9191]
+  }
+}
+```
 
+<<<<<<< Updated upstream
 ---
 
 ## 📄 Requisitos
@@ -187,3 +178,14 @@ Abordagem ágil, com sprints curtas e quadro Kanban (Backlog → A fazer → Em 
 
 ## 📝 Licença
 Este projeto está sob a licença MIT.
+=======
+**Importante:** GeoJSON usa `[longitude, latitude]`. O backend do grupo precisa aceitar o formato do `bbox` acima e aplicar o filtro geográfico (`$geoWithin`/índice `2dsphere`, conforme a divisão da sprint). Se o contrato que o backend implementar for diferente, ajuste a montagem de `params` no componente.
+
+## 5. Observações
+
+- O mapa começa centralizado em Belo Horizonte.
+- Os marcadores abrem um popup com tipo, gravidade, status e descrição quando disponíveis.
+- O frontend não inventa ocorrências: se o backend não estiver conectado, aparecerá uma mensagem de configuração/conexão.
+- O botão de recentralizar é visual nesta versão inicial; se quiser ativá-lo, posso ligar o botão ao controle do mapa na próxima integração.
+- Os tiles do mapa são servidos pelo OpenStreetMap e precisam de internet.
+>>>>>>> Stashed changes
