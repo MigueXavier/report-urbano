@@ -17,7 +17,7 @@ export const PERFIS = [
   'Cadeirante',
   'Mobilidade reduzida',
   'Baixa visão',
-  'Idoso'
+  'Idoso',
 ];
 
 // RF10 - gravidade. Textos iguais aos do enum Gravidade.
