@@ -1,5 +1,7 @@
 export const TIPOS=['Buraco na via','Calçada danificada','Ausência de rampa','Degrau','Piso tátil ausente','Vaga de idoso/PCD inexistente','Obstáculo em passeio','Lixo ou entulho','Iluminação','Alagamento recorrente'];
 export const PERFIS=['Cadeirante','Mobilidade reduzida','Baixa visão','Idoso'];
+export const GRAVIDADES=['Leve','Moderada','Grave']; // RF10 — rótulos iguais ao enum Gravidade do back-end
+export const DESC_MAX=1000; // RF11 — mesmo limite do @Size(max=1000) em ClassificacaoOcorrencia
 export const REGIOES={Centro_Sul:[220,18,30],Pampulha:[140,22,12],Venda_Nova:[95,31,8],Barreiro:[120,27,10],Leste:[80,19,15]}; // [abertas, dias sem resposta, resolvidas 30d] — dados fictícios
 export const CENTRO=[-19.9208,-43.9378];
 export const SEED=[
