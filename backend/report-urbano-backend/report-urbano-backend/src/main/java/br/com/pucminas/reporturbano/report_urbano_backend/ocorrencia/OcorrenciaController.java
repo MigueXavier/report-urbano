@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -17,10 +18,10 @@ public class OcorrenciaController {
 
     private final OcorrenciaService service;
 
+   
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OcorrenciaResponse criar(@RequestBody NovaOcorrenciaRequest req, Authentication auth) {
-        
+    public OcorrenciaResponse criar(@Valid @RequestBody NovaOcorrenciaRequest req, Authentication auth) {
         return OcorrenciaResponse.de(service.criar(req, auth.getName()));
     }
 }
