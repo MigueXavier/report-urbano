@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# Report Urbano — frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aprimoramento do frontend inicial do grupo. Mantém React, Create React App, React Router, Leaflet, a marca e as rotas originais. Não modifica o backend nem acrescenta dependências.
 
-## Available Scripts
+## Executar
 
-In the project directory, you can run:
+Na pasta frontend:
 
-### `npm start`
+```bash
+npm install
+npm start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Abra o endereço exibido pelo terminal. Para compilar: `npm run build`.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Aplicar na sua branch
 
-### `npm test`
+1. Faça uma cópia de segurança da sua pasta frontend.
+2. Na branch Guilherme, crie sua branch com `git switch -c Bernardo` (se já existir, use `git switch Bernardo`).
+3. Copie o conteúdo desta pasta por cima da pasta frontend do repositório, substituindo os arquivos. Não crie frontend/frontend.
+4. Execute os comandos acima e confira as telas.
+5. Na raiz do repositório:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git status
+git add frontend
+git commit -m "Aprimora interface e responsividade do frontend"
+git push -u origin Bernardo
+```
 
-### `npm run build`
+Confira o `git status` antes de adicionar: ele deve mostrar somente as mudanças que você deseja enviar.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## O que mudou
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Login e cadastro com apresentação do projeto, orientações e validação de confirmação de senha.
+- Seleção de perfil com cartões explicativos.
+- Layout adaptado para computador e celular, mantendo azul e verde-azulado.
+- Mapa com lista de ocorrências, busca por tipo/endereço e filtros por status/acessibilidade.
+- Cartões com endereço, status e fotografia quando disponível.
+- Formulários, botões, estados vazios e indicador de etapas padronizados.
+- Edição de nome/e-mail funcionando no estado da sessão.
+- Mapa acompanha localização recebida e permite ajustar o ponto por clique ou arraste.
+- Aviso quando o provedor externo de mapa não carrega.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Limites da demonstração herdada
 
-### `npm run eject`
+O login aceita qualquer e-mail e senha preenchidos. O cadastro valida o formulário, mas não cria contas reais. Não use CPF ou senhas reais. O perfil de moderação é selecionável para apresentação acadêmica, sem autorização real.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Ocorrências, perfil, fotos e moderação ficam somente em memória e se perdem ao recarregar. Os números da tela inicial refletem a lista de demonstração; o painel regional usa valores fictícios do arquivo mock.js.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Confirmações independentes por usuário, autenticação, persistência, autorização de moderadores e integração com a API ainda precisam ser implementadas pelo grupo. A lógica de resolução herdada não verifica identidade independente; não é validação de produção.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+O mapa depende da conexão com OpenStreetMap. A geolocalização depende de permissão do navegador. A lista permite abrir ocorrências mesmo quando o mapa falha.

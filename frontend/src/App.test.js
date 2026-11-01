@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import {render,screen} from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('exibe o acesso à demonstração e seus campos',()=>{
+ render(<App/>);
+ expect(screen.getByRole('heading',{name:'Bem-vindo de volta'})).toBeInTheDocument();
+ expect(screen.getByLabelText('E-mail')).toBeRequired();
+ expect(screen.getByRole('button',{name:'Entrar'})).toBeInTheDocument();
 });
